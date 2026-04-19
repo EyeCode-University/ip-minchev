@@ -1,0 +1,174 @@
+.section {
+  padding: var(--spacing-xxl) 0;
+  background: var(--bg-primary);
+}
+
+.eyebrow {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  text-align: center;
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border: 1px solid rgb(226, 226, 226);
+  border-radius: 50px;
+  width: max-content;
+  margin: 0 auto;
+  padding: 0.2rem 1rem;
+  
+}
+
+.heading {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.07;
+  color: transparent;
+ 
+  background: linear-gradient(120deg,black,rgb(0, 0, 141)  ,black);
+   background-clip: text;
+   width: max-content;
+   margin: 0 auto;
+  text-align: center;
+  margin-bottom: var(--spacing-md);
+
+}
+
+.subheading {
+  font-size: clamp(17px, 0.8vw, 24px);
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.4;
+  max-width: 540px;
+  margin: 0 auto var(--spacing-xl);
+}
+
+/* ===== Machining grid ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.card {
+ 
+  border-radius: var(--border-radius);
+  padding: 32px 28px;
+  transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  background:linear-gradient(120deg,white,whitesmoke,white);
+  position: relative;
+  overflow: hidden;
+
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+}
+
+.cardIcon {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem ;
+  justify-content: center;
+  
+}
+
+.cardNumber {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  background: var(--accent-blue-muted);
+  padding: 6px 12px;
+  border-radius: var(--border-radius-pill);
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.cardParams {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.47;
+ 
+  
+}
+
+/* ===== Equipment block ===== */
+.equipmentBlock {
+  
+  border-radius: 28px;
+  padding: 56px 48px;
+}
+
+.equipmentHeading {
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.equipmentDesc {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.equipmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.equipmentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 17px;
+  line-height: 1.47;
+  color: var(--text-primary);
+}
+
+.equipmentDot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1068px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 734px) {
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .equipmentBlock {
+    padding: 32px 24px;
+    border-radius: var(--border-radius);
+  }
+}

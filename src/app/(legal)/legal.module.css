@@ -1,0 +1,118 @@
+.page {
+  padding: calc(var(--header-height) + var(--spacing-xl)) 0 var(--spacing-xxl);
+  background: var(--bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--accent-blue);
+  margin-bottom: var(--spacing-md);
+  transition: opacity var(--duration-fast);
+}
+
+.back:hover {
+  opacity: 0.7;
+}
+
+.title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.effective {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.section {
+  margin-bottom: var(--spacing-lg);
+}
+
+.section h2 {
+  font-size: clamp(20px, 2.2vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section h3 {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xs);
+}
+
+.section p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.section ul,
+.section ol {
+  padding-left: 22px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.section ul {
+  list-style: disc;
+}
+
+.section ol {
+  list-style: decimal;
+}
+
+.section li {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.section a {
+  color: var(--accent-blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.operator {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.operator dt {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 10px;
+}
+
+.operator dt:first-child {
+  margin-top: 0;
+}
+
+.operator dd {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-top: 2px;
+}

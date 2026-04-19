@@ -1,0 +1,131 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  background: rgba(251, 251, 253, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  transition: border-color var(--duration-normal) var(--ease-apple);
+  border-bottom: 0.5px solid transparent;
+}
+
+.header.scrolled {
+  border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  opacity: 0.9;
+  transition: opacity var(--duration-fast);
+}
+
+.logo:hover {
+  opacity: 1;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navLink {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-primary);
+  opacity: 0.8;
+  transition: opacity var(--duration-normal);
+}
+
+.navLink:hover {
+  opacity: 1;
+}
+
+/* Burger */
+.burger {
+  display: none;
+  width: 18px;
+  height: 18px;
+  position: relative;
+  z-index: 110;
+}
+
+.burger span {
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--text-primary);
+  border-radius: 1px;
+  transition: transform var(--duration-normal) var(--ease-apple),
+              opacity var(--duration-fast);
+}
+
+.burger span:nth-child(1) {
+  top: 5px;
+}
+
+.burger span:nth-child(2) {
+  top: 11px;
+}
+
+.burgerOpen span:nth-child(1) {
+  top: 8px;
+  transform: rotate(45deg);
+}
+
+.burgerOpen span:nth-child(2) {
+  top: 8px;
+  transform: rotate(-45deg);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 734px) {
+  .burger {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    background: rgba(251, 251, 253, 0.97);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-normal) var(--ease-apple);
+  }
+
+  .navOpen {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .navLink {
+    font-size: 17px;
+    font-weight: 600;
+  }
+}
