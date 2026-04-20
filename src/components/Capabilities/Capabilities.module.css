@@ -64,12 +64,12 @@
   background:linear-gradient(120deg,white,whitesmoke,white);
   position: relative;
   overflow: hidden;
-
+ cursor: pointer;
 }
 
 .card:hover {
   transform: scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+ 
 }
 
 .cardIcon {

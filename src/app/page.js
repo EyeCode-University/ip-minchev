@@ -1,6 +1,7 @@
 import Header from '@/components/Header/Header';
 import Hero from '@/components/Hero/Hero';
 import Capabilities from '@/components/Capabilities/Capabilities';
+import CitiesMarquee from '@/components/CitiesMarquee/CitiesMarquee';
 import Gallery from '@/components/Gallery/Gallery';
 import Contacts from '@/components/Contacts/Contacts';
 import RequestForm from '@/components/RequestForm/RequestForm';
@@ -13,6 +14,7 @@ export default function Home() {
       <main>
         <Hero />
         <Capabilities />
+        <CitiesMarquee />
         <Gallery />
         <Contacts />
         <RequestForm />
