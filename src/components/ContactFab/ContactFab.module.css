@@ -1,0 +1,250 @@
+/* ===== FAB ===== */
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+  box-shadow:
+    0 12px 30px rgba(0, 42, 227, 0.35),
+    0 4px 10px rgba(0, 42, 227, 0.2);
+  transition: transform 0.3s var(--ease-apple), box-shadow 0.3s var(--ease-apple);
+}
+
+.fab svg {
+  position: relative;
+  z-index: 1;
+}
+
+.fabRing {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: fabPulse 2.4s var(--ease-apple) infinite;
+  pointer-events: none;
+}
+
+.fab:hover {
+  transform: scale(1.06);
+  box-shadow:
+    0 16px 38px rgba(0, 42, 227, 0.45),
+    0 4px 12px rgba(0, 42, 227, 0.25);
+}
+
+.fab:active {
+  transform: scale(0.96);
+}
+
+@keyframes fabPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 42, 227, 0.55); }
+  70% { box-shadow: 0 0 0 18px rgba(0, 42, 227, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 42, 227, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fabRing { animation: none; }
+}
+
+/* ===== Backdrop (frosted glass) ===== */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 25, 0.4);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+  animation: backdropIn 0.3s var(--ease-apple);
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== Liquid glass card ===== */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  padding: 36px 22px 22px;
+  background: rgba(255, 255, 255, 0.68);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 28px;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.25),
+    0 10px 20px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  animation: cardIn 0.4s var(--ease-apple-bounce);
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.92) translateY(24px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s var(--ease-apple), color 0.2s var(--ease-apple);
+}
+
+.close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 22px;
+  padding: 2px 12px 0;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ===== Action row (glass pill) ===== */
+.action {
+  display: grid;
+  grid-template-columns: 40px 1fr 16px;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 12px 12px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 16px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.25s var(--ease-apple),
+    background 0.25s var(--ease-apple),
+    border-color 0.25s var(--ease-apple),
+    box-shadow 0.25s var(--ease-apple);
+}
+
+.action:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.action:active {
+  transform: translateY(0);
+}
+
+.actionIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.actionCall .actionIcon {
+  background: linear-gradient(140deg, #0071e3, var(--accent-blue));
+}
+.actionWhatsapp .actionIcon {
+  background: linear-gradient(140deg, #25D366, #128C7E);
+}
+.actionTelegram .actionIcon {
+  background: linear-gradient(140deg, #2AABEE, #229ED9);
+}
+
+.actionText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.actionLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.actionValue {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionArrow {
+  color: var(--text-secondary);
+  transform: translateX(-4px);
+  opacity: 0.5;
+  transition: transform 0.25s var(--ease-apple), opacity 0.25s var(--ease-apple), color 0.25s var(--ease-apple);
+}
+
+.action:hover .actionArrow {
+  transform: translateX(0);
+  opacity: 1;
+  color: var(--text-primary);
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 734px) {
+  .fab {
+    bottom: 18px;
+    right: 18px;
+    width: 56px;
+    height: 56px;
+  }
+
+  .card {
+    padding: 32px 18px 18px;
+    border-radius: 24px;
+  }
+}

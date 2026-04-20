@@ -1,4 +1,5 @@
 import { Inter } from "next/font/google";
+import ContactFab from "@/components/ContactFab/ContactFab";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,7 +32,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ru" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <ContactFab />
+      </body>
     </html>
   );
 }
