@@ -15,7 +15,7 @@ export default function FadeIn({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once:false, margin: '-80px' }}
+      viewport={{ once:true, margin: '-80px' }}
       transition={{
         duration,
         delay,
