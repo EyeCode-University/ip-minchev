@@ -7,11 +7,18 @@
   height: var(--header-height);
   display: flex;
   align-items: center;
+  transition: border-color var(--duration-normal) var(--ease-apple);
+  border-bottom: 0.5px solid transparent;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: rgba(251, 251, 253, 0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
-  transition: border-color var(--duration-normal) var(--ease-apple);
-  border-bottom: 0.5px solid transparent;
+  z-index: -1;
 }
 
 .header.scrolled {

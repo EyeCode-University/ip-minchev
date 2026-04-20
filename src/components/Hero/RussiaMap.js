@@ -26,7 +26,7 @@ export default function RussiaMap() {
 
       {mapData.cities.map((city) => (
         <g key={city.name} className={styles.cityGroup}>
-          <circle className={styles.pulse} cx={city.x} cy={city.y} r="46" />
+          <circle className={styles.pulse} cx={city.x} cy={city.y} r="24" />
           <circle className={styles.cityDot} cx={city.x} cy={city.y} r="3" />
           <text
             className={styles.label}
