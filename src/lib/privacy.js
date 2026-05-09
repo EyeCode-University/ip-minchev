@@ -4,8 +4,8 @@ export const CONSENT_VERSION = 'v1.0';
 export const CONSENT_EFFECTIVE_DATE = '17 апреля 2026 г.';
 
 export const OPERATOR = {
-  name: 'Индивидуальный предприниматель Минчев Р.М.',
-  short: 'ИП Минчев Р.М.',
+  name: 'Торговый представитель Минчева Э.Р.',
+  short: 'Торговый представитель Минчева Э.Р.',
   address: 'Ул. Владимирская д.36, кв.1, г. Мариуполь, ДНР, Российская Федерация',
   email: 'Minchev-rm@yandex.ru',
   phone: '+7 949 714 46 22',

@@ -1,7 +1,7 @@
 // ===== Данные компании =====
 export const COMPANY = {
-  name: 'ИП Минчев Р.М.',
-  fullName: 'Индивидуальный предприниматель Минчев Р.М.',
+  name: 'Торговый представитель Минчева Э.Р.',
+  fullName: 'Торговый представитель Минчева Э.Р.',
   phone: '+7 949 714 46 22',
   phoneHref: 'tel:+79497144622',
   whatsappHref: 'https://wa.me/79497144622',
@@ -58,7 +58,14 @@ export const MACHINING_CAPABILITIES = [
 ];
 
 // ===== Галерея =====
-export const GALLERY_IMAGES = Array.from({ length: 19 }, (_, i) => ({
-  src: `/assets/slider-item (${i + 1}).jpg`,
+export const GALLERY_IMAGES = [
+  ...Array.from({ length: 15 }, (_, i) => ({
+    src: `/assets/generated_images/slide-item (${i + 1}).png`,
+  })),
+  ...Array.from({ length: 3 }, (_, i) => ({
+    src: `/assets/generated_images/slide-item (${i + 1}).jpg`,
+  })),
+].map((img, i) => ({
+  ...img,
   alt: `Производство промышленного оборудования — фото ${i + 1}`,
 }));

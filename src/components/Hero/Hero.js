@@ -15,7 +15,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          ИП Минчев Р.М.
+          Торговый представитель Минчева Э.Р.
         </motion.p>
         <motion.h1
           className={styles.title}
