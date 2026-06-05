@@ -15,12 +15,15 @@ export default function Header() {
   }, []);
 
   const handleNavClick = () => setMenuOpen(false);
+  const navLinks = NAV_LINKS.filter((l) => l.href !== '#request');
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-      <div className={`container ${styles.inner}`}>
+      <div className={styles.bar}>
         <a href="#hero" className={styles.logo} onClick={handleNavClick}>
-          {COMPANY.name}
+          <span className={styles.logoMark} aria-hidden="true">ЭР</span>
+          <span className={styles.logoFull}>{COMPANY.name}</span>
+          <span className={styles.logoShort}>Минчева Э.Р.</span>
         </a>
 
         <button
@@ -37,7 +40,7 @@ export default function Header() {
           className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}
           aria-label="Основная навигация"
         >
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -47,6 +50,9 @@ export default function Header() {
               {link.label}
             </a>
           ))}
+          <a href="#request" className={styles.cta} onClick={handleNavClick}>
+            Оставить заявку
+          </a>
         </nav>
       </div>
     </header>

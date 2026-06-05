@@ -1,10 +1,26 @@
-import { Inter } from "next/font/google";
+import { Inter, IBM_Plex_Mono, Playfair_Display } from "next/font/google";
 import ContactFab from "@/components/ContactFab/ContactFab";
+import ServiceWorkerCleanup from "@/components/ServiceWorkerCleanup";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-sf",
   subsets: ["latin", "cyrillic"],
+  display: "swap",
+});
+
+// Чертёжный блок «Создать заявку»: моноширинный для тех-меток, serif для заголовка.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-mono",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-serif",
+  subsets: ["latin", "cyrillic"],
+  weight: ["600", "700", "800"],
   display: "swap",
 });
 
@@ -31,10 +47,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ru" className={inter.variable}>
+    <html lang="ru" className={`${inter.variable} ${plexMono.variable} ${playfair.variable}`}>
       <body>
         {children}
         <ContactFab />
+        <ServiceWorkerCleanup />
       </body>
     </html>
   );

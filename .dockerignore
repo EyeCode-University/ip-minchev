@@ -1,0 +1,23 @@
+# Сборка идёт внутри образа — локальные артефакты не нужны и только раздувают контекст.
+node_modules
+.next
+out
+build
+
+# Секреты не запекаем в образ — передаём через --env-file / docker-compose.
+.env
+.env.*
+
+# git и прочий мусор
+.git
+.gitignore
+.vscode
+.idea
+*.log
+npm-debug.log*
+
+# Документация и заметки — в рантайме не нужны.
+DEPLOY.md
+fixed-issues.md
+*.md
+README*

@@ -4,6 +4,7 @@
 }
 
 .eyebrow {
+  font-family: var(--font-serif), Georgia, serif;
   font-size: 1rem;
   font-weight: 600;
   color: var(--accent-blue);
@@ -49,104 +50,290 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 20px;
   margin-bottom: var(--spacing-xl);
 }
 
 .card {
- 
-  border-radius: var(--border-radius);
-  padding: 32px 28px;
-  transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  background:linear-gradient(120deg,white,whitesmoke,white);
   position: relative;
   overflow: hidden;
- cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-height: 188px;
+  padding: 26px 26px 24px;
+  background: linear-gradient(165deg, #ffffff 0%, #f4f6f9 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.45s var(--ease-apple),
+    box-shadow 0.45s var(--ease-apple),
+    border-color 0.45s var(--ease-apple);
+  cursor: default;
+}
+
+/* Мягкое синее свечение в углу — проявляется на hover. */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -45%;
+  right: -25%;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 42, 227, 0.07), transparent 70%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-apple);
 }
 
 .card:hover {
-  transform: scale(1.02);
- 
+  transform: translateY(-6px);
+  border-color: rgba(0, 42, 227, 0.22);
+  box-shadow:
+    0 20px 44px -18px rgba(0, 42, 227, 0.32),
+    0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.cardIcon {
-  margin-bottom: 20px;
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Большая «призрачная» цифра-водяной знак на фоне. */
+.ghost {
+  position: absolute;
+  top: -26px;
+  right: 2px;
+  z-index: 0;
+  font-size: 132px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: rgba(20, 22, 30, 0.035);
+  pointer-events: none;
+  user-select: none;
+  transition: color 0.5s var(--ease-apple);
+}
+
+.card:hover .ghost {
+  color: rgba(0, 42, 227, 0.07);
+}
+
+/* Металлическая пластина с гравированным номером + лёгкая брашированная фактура. */
+.badge {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
-  gap: 1rem ;
   justify-content: center;
-  
-}
-
-.cardNumber {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent-blue);
-  background: var(--accent-blue-muted);
-  padding: 6px 12px;
-  border-radius: var(--border-radius-pill);
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #4a4e57;
+  background:
+    repeating-linear-gradient(118deg, rgba(255, 255, 255, 0.35) 0 1px, transparent 1px 3px),
+    linear-gradient(135deg, #f6f7f9 0%, #c9cdd4 24%, #edeef1 48%, #aeb3bb 72%, #dfe2e6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.18),
+    0 2px 5px rgba(0, 0, 0, 0.14);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .cardTitle {
-  font-size: 1rem;
+  position: relative;
+  z-index: 1;
+  font-size: 20px;
   font-weight: 600;
   color: var(--text-primary);
-  letter-spacing: -0.01em;
-  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
 }
 
-.cardParams {
+/* Параметры как data-чип. */
+.params {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  background: rgba(0, 0, 0, 0.035);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Кнопка «Подробнее» ===== */
+.moreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-md);
+}
+
+.moreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
   font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.47;
- 
-  
+  font-weight: 600;
+  color: var(--accent-blue);
+  background: var(--accent-blue-muted);
+  border-radius: var(--border-radius-pill);
+  transition: background 0.3s var(--ease-apple), transform 0.3s var(--ease-apple);
 }
 
-/* ===== Equipment block ===== */
-.equipmentBlock {
-  
-  border-radius: 28px;
-  padding: 56px 48px;
+.moreBtn:hover {
+  background: rgba(0, 42, 227, 0.14);
+  transform: translateY(-1px);
 }
 
-.equipmentHeading {
-  font-size: clamp(24px, 3vw, 36px);
+.moreIcon {
+  transition: transform 0.35s var(--ease-apple);
+}
+
+.moreBtnOpen .moreIcon {
+  transform: rotate(180deg);
+}
+
+/* ===== Блоки (станочный парк + перечень) ===== */
+.block {
+  margin-top: var(--spacing-xl);
+}
+
+.blockHead {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.blockHeading {
+  font-size: clamp(24px, 3vw, 34px);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
 }
 
-.equipmentDesc {
+.blockCount {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent-blue);
+  background: var(--accent-blue-muted);
+  padding: 4px 11px;
+  border-radius: var(--border-radius-pill);
+}
+
+.blockDesc {
   font-size: 17px;
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-lg);
+  margin: var(--spacing-xs) 0 var(--spacing-md);
 }
 
-.equipmentList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* ===== Таблица станочного парка ===== */
+.tableWrap {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: #fff;
 }
 
-.equipmentItem {
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  padding: 15px 24px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.thSpec {
+  text-align: right !important;
+}
+
+.table td {
+  padding: 15px 24px;
+  vertical-align: baseline;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.2s var(--ease-apple);
+}
+
+.table tbody tr:first-child td {
+  border-top: none;
+}
+
+/* Тонкий разделитель между группами одинаковых типов — чуть заметнее. */
+.rowGroup:not(:first-child) td {
+  border-top: 1px solid var(--color-border);
+}
+
+.table tbody tr:hover td {
+  background: rgba(0, 42, 227, 0.03);
+}
+
+.tdType {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.tdModel {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.tdSpec {
+  text-align: right;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Перечень продукции ===== */
+.productList {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 40px;
+}
+
+.productItem {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  font-size: 17px;
-  line-height: 1.47;
+  gap: 12px;
+  padding: 14px 0;
+  font-size: 15px;
+  line-height: 1.45;
   color: var(--text-primary);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.equipmentDot {
+.productDot {
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  margin-top: 10px;
+  width: 5px;
+  height: 5px;
+  margin-top: 8px;
   border-radius: 50%;
   background: var(--accent-blue);
 }
@@ -167,8 +354,13 @@
     grid-template-columns: 1fr;
   }
 
-  .equipmentBlock {
-    padding: 32px 24px;
-    border-radius: var(--border-radius);
+  .table th,
+  .table td {
+    padding: 13px 16px;
+  }
+
+  .productList {
+    grid-template-columns: 1fr;
+    column-gap: 0;
   }
 }

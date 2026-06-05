@@ -10,7 +10,6 @@ export default function Contacts() {
       <div className="container">
         <div className={styles.grid}>
           <FadeIn className={styles.statement}>
-            <span className={styles.eyebrow}>Контакты</span>
             <h2 className={styles.heading}>
               Свяжитесь<br />с нами
             </h2>

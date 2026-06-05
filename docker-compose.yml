@@ -1,0 +1,11 @@
+services:
+  web:
+    build: .
+    image: minchev-site
+    container_name: minchev-site
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    # Секреты берутся из .env рядом с этим файлом (не из образа).
+    env_file:
+      - .env

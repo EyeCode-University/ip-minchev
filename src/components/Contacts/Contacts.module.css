@@ -16,22 +16,10 @@
   padding-top: 8px;
 }
 
-.eyebrow {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--accent-blue);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 6px 14px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-pill);
-  margin-bottom: 32px;
-}
-
 .heading {
+  font-family: var(--font-serif), Georgia, serif;
   font-size: clamp(40px, 5.4vw, 68px);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
   color: var(--text-primary);

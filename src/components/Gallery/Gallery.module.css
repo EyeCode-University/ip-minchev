@@ -4,6 +4,7 @@
 }
 
 .eyebrow {
+  font-family: var(--font-serif), Georgia, serif;
     font-size: 1rem;
   font-weight: 600;
   color: var(--accent-blue);
@@ -48,13 +49,28 @@
   display: contents;
 }
 
-.thumb {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  border-radius: var(--border-radius-sm);
-  overflow: hidden;
+.card {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #fff;
 }
 
 .image {
@@ -65,8 +81,47 @@
   transition: transform 0.5s var(--ease-apple);
 }
 
-.thumb:hover .image {
+.card:hover .image {
   transform: scale(1.04);
+}
+
+/* Видео-карточка: первый кадр как постер, наполовину обесцвечен. */
+.thumbVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+  filter: grayscale(0.5);
+  transition: filter 0.4s var(--ease-apple), transform 0.5s var(--ease-apple);
+}
+
+.card:hover .thumbVideo {
+  filter: grayscale(0);
+  transform: scale(1.04);
+}
+
+.playBadge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  padding-left: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent-blue);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  transition: transform 0.3s var(--ease-apple), background 0.3s var(--ease-apple);
+}
+
+.card:hover .playBadge {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: #fff;
 }
 
 .overlay {
@@ -81,6 +136,28 @@
   transition: opacity 0.4s var(--ease-apple);
 }
 
-.thumb:hover .overlay {
+.card:hover .overlay {
   opacity: 1;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px 14px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.captionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.captionSubtitle {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--text-secondary);
 }

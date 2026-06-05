@@ -31,15 +31,33 @@ export default function Lightbox({ images, activeIndex, onClose, onPrev, onNext 
   return (
     <div className={styles.backdrop} onClick={handleBackdropClick} role="dialog" aria-label="Просмотр фото">
       <div className={styles.content}>
-        <Image
-          src={img.src}
-          alt={img.alt}
-          width={1200}
-          height={900}
-          className={styles.image}
-          sizes="90vw"
-          priority
-        />
+        {img.type === 'video' ? (
+          <video
+            key={img.src}
+            className={styles.video}
+            src={img.src}
+            controls
+            autoPlay
+            playsInline
+          />
+        ) : (
+          <Image
+            src={img.src}
+            alt={img.alt}
+            width={1200}
+            height={900}
+            className={styles.image}
+            sizes="90vw"
+            priority
+          />
+        )}
+
+        {img.type !== 'video' && (
+          <div className={styles.caption}>
+            <p className={styles.captionTitle}>{img.title}</p>
+            {img.subtitle && <p className={styles.captionSubtitle}>{img.subtitle}</p>}
+          </div>
+        )}
 
         <span className={styles.counter}>
           {activeIndex + 1} / {images.length}

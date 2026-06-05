@@ -44,28 +44,87 @@ export const EQUIPMENT_LIST = [
   'Соединительные фитинги для смазочных линий оборудования',
 ];
 
+// ===== Станочный парк =====
+// Плоский список (тип повторяется подряд — в таблице дублирующийся тип скрываем,
+// получая визуальную группировку). `spec` — РМЦ или габариты рабочей зоны.
+export const MACHINE_FLEET = [
+  { type: 'Токарно-винторезный',      model: '16К20',   spec: 'РМЦ 1500 мм' },
+  { type: 'Токарно-винторезный',      model: 'Кусон-3', spec: 'РМЦ 1500 мм' },
+  { type: 'Токарно-винторезный',      model: '1М63',    spec: 'РМЦ 3000 мм' },
+  { type: 'Токарно-винторезный',      model: 'SRK 100', spec: 'РМЦ 3400 мм' },
+  { type: 'Токарно-винторезный',      model: '16Б60',   spec: 'РМЦ 6300 мм' },
+  { type: 'Токарно-карусельный',      model: '1516',    spec: 'Ø 1500 мм' },
+  { type: 'Токарный с ЧПУ',           model: '16А250',  spec: 'РМЦ 1000 мм' },
+  { type: 'Токарный с ЧПУ',           model: '1М63',    spec: 'РМЦ 1500 мм' },
+  { type: 'Фрезерный',                model: 'FSS 400', spec: '1450 × 450 мм' },
+  { type: 'Фрезерный',                model: 'FU 450',  spec: '1450 × 450 мм' },
+  { type: 'Фрезерный с ЧПУ',          model: 'AG 400',  spec: '800 × 600 мм' },
+  { type: 'Горизонтально-расточной',  model: '2А636',   spec: '1800 × 1800 мм' },
+  { type: 'Плоскошлифовальный',       model: '3В722',   spec: '1200 × 350 мм' },
+  { type: 'Круглошлифовальный',       model: '3А172',   spec: 'РМЦ 4000 мм' },
+];
+
 // ===== Технологические возможности =====
 export const MACHINING_CAPABILITIES = [
-  { name: 'Токарная обработка', params: 'до Ø1100 мм, L = 6000 мм' },
-  { name: 'Фрезерование', params: '1200 × 1200 × 1200 мм' },
-  { name: 'Плоское шлифование', params: '1100 × 450 × 400 мм' },
-  { name: 'Круглое шлифование', params: 'Ø500 мм, L = 4000 мм' },
-  { name: 'Токарная обработка ЧПУ', params: 'Ø250, L = 1000 мм' },
-  { name: 'Токарная обработка ЧПУ', params: 'Ø650, L = 1400 мм' },
-  { name: 'Фрезерование ЧПУ', params: '800 × 600 × 400 мм' },
-  { name: 'Объёмная закалка, отжиг', params: '600 × 600 × 6300 мм' },
-  { name: 'ТВЧ (токи высокой частоты)', params: 'закалка поверхности' },
+  { name: 'Токарная обработка',          params: 'до Ø1100 мм, L = 6000 мм' },
+  { name: 'Фрезерование',                params: '1200 × 1200 × 1200 мм' },
+  { name: 'Плоское шлифование',          params: '1100 × 450 × 400 мм' },
+  { name: 'Круглое шлифование',          params: 'Ø500 мм, L = 4000 мм' },
+  { name: 'Токарная обработка ЧПУ',      params: 'Ø250, L = 1000 мм' },
+  { name: 'Токарная обработка ЧПУ',      params: 'Ø650, L = 1400 мм' },
+  { name: 'Фрезерование ЧПУ',            params: '800 × 600 × 400 мм' },
+  { name: 'Объёмная закалка, отжиг',     params: '600 × 600 × 6300 мм' },
+  { name: 'ТВЧ (токи высокой частоты)',  params: 'закалка поверхности' },
 ];
 
 // ===== Галерея =====
-export const GALLERY_IMAGES = [
-  ...Array.from({ length: 15 }, (_, i) => ({
-    src: `/assets/generated_images/slide-item (${i + 1}).png`,
-  })),
-  ...Array.from({ length: 3 }, (_, i) => ({
-    src: `/assets/generated_images/slide-item (${i + 1}).jpg`,
-  })),
-].map((img, i) => ({
-  ...img,
-  alt: `Производство промышленного оборудования — фото ${i + 1}`,
+// Изготовленные изделия. `title` — наименование, `subtitle` — модель / агрегат /
+// предприятие-заказчик. `file` — имя файла в public/assets/generated_images:
+// 15 изделий вырезаны без фона (slide-item (N).png), 3 оставлены исходными
+// фото (slide-item (N).jpg) — там сцена/монтаж, вырезать нечего.
+const GALLERY_ITEMS = [
+  { file: 'slide-item (1).png',  title: 'Корпус гидроцилиндра',                          subtitle: 'СТАН 3000, ММК им. Ильича' },
+  { file: 'slide-item (2).png',  title: 'Шарнир гидросбива Ру250',                       subtitle: 'СТАН 3000, ММК им. Ильича' },
+  { file: 'slide-item (3).png',  title: 'Шарнир водоохлаждаемый',                        subtitle: 'СТАН 1700, ММК им. Ильича' },
+  { file: 'slide-item (4).png',  title: 'Гидроцилиндр с датчиком линейного перемещения', subtitle: 'Кристаллизатор МНЛЗ, Азовсталь' },
+  { file: 'slide-item (5).png',  title: 'Гидроцилиндр шлифовального станка',             subtitle: 'ММК им. Ильича' },
+  { file: 'slide-item (6).png',  title: 'Гидроцилиндр двухштоковый',                     subtitle: 'СТАН 3000, ММК им. Ильича' },
+  { file: 'slide-item (7).png',  title: 'Гидроцилиндры',                                 subtitle: 'СТАН 3600, Азовсталь' },
+  { file: 'slide-item (8).png',  title: 'Механизм открытия МНЛЗ',                        subtitle: 'Азовсталь' },
+  { file: 'slide-item (9).png',  title: 'Дистрибьютор',                                  subtitle: 'Запорожсталь' },
+  { file: 'slide-item (10).png', title: 'Корпуса гидроцилиндров',                        subtitle: '' },
+  { file: 'slide-item (11).png', title: 'Коллектор гидросбива',                          subtitle: '' },
+  { file: 'slide-item (12).png', title: 'Муфта Ивачёва',                                 subtitle: '' },
+  { file: 'slide-item (13).png', title: 'Распределитель воды с пневмоприводом',          subtitle: 'ММК им. Ильича' },
+  { file: 'slide-item (14).png', title: 'Плунжерный цилиндр Ø360 × L3600',               subtitle: 'Запорожсталь' },
+  { file: 'slide-item (15).png', title: 'Плунжерный цилиндр',                            subtitle: 'Запорожсталь' },
+  { file: 'slide-item (1).jpg',  title: 'Шарнир водоохлаждаемый',                        subtitle: 'СТАН 3000' },
+  { file: 'slide-item (2).jpg',  title: 'Водоочистная машина',                           subtitle: 'ТН2500' },
+  { file: 'slide-item (3).jpg',  title: 'Гидроцилиндр 4-х штоковый Clecim',              subtitle: 'СТАН 1700, подъём валков' },
+  { file: 'slide-item (16).png', title: 'Вал насоса L-5',                                subtitle: '' },
+  { file: 'slide-item (17).png', title: 'Направляющий аппарат',                          subtitle: '' },
+  { file: 'slide-item (18).png', title: 'Секция насоса',                                 subtitle: '' },
+  { file: 'slide-item (19).png', title: 'Секция насоса',                                 subtitle: '' },
+];
+
+export const GALLERY_IMAGES = GALLERY_ITEMS.map(({ file, title, subtitle }) => ({
+  src: `/assets/generated_images/${file}`,
+  title,
+  subtitle,
+  alt: subtitle ? `${title} — ${subtitle}` : title,
 }));
+
+// ===== Демо-видео производства =====
+// Вертикальный ролик (9:16), снят на телефон. Лежит в public/assets/videos/.
+// Постер-кадр не задаём — показываем первый кадр самого <video> (preload metadata).
+export const DEMO_VIDEO = {
+  type: 'video',
+  src: '/assets/videos/vid.MP4',
+  title: 'Производство в работе',
+  subtitle: 'Изготовление и сборка изделий на нашем участке',
+  alt: 'Видео: производство и сборка изделий',
+};
+
+// Видео — первым элементом галереи: такая же карточка, как фото, но по клику
+// открывается в лайтбоксе с воспроизведением.
+export const GALLERY_MEDIA = [DEMO_VIDEO, ...GALLERY_IMAGES];
