@@ -32,7 +32,10 @@ export default function RequestForm() {
   const [docDate, setDocDate] = useState('');
   const formRef = useRef(null);
 
+  // Видимость модалки отделена от state.success (useActionState нельзя сбросить
+  // извне), поэтому поднимаем флаг в эффекте — намеренный паттерн.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (state.success) setShowSuccess(true);
   }, [state.success]);
 
@@ -40,6 +43,7 @@ export default function RequestForm() {
   useEffect(() => {
     const d = new Date();
     const p = (n) => String(n).padStart(2, '0');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDocDate(`${p(d.getDate())}.${p(d.getMonth() + 1)}.${d.getFullYear()}`);
   }, []);
 

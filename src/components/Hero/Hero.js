@@ -2,12 +2,17 @@
 
 import { motion } from 'motion/react';
 import RussiaMap from './RussiaMap';
+import ReactorModel from './ReactorModel';
 import styles from './Hero.module.css';
 
 
 export default function Hero() {
   return (
     <section id="hero" className={styles.hero}>
+      <div className={styles.reactorWrap}>
+        <ReactorModel />
+      </div>
+
       <div className={`container ${styles.content}`}>
         <motion.p
           className={styles.eyebrow}

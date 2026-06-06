@@ -2,13 +2,29 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { AnimatePresence } from 'motion/react';
 import { GALLERY_MEDIA } from '@/lib/constants';
 import FadeIn from '@/components/FadeIn';
-import Lightbox from './Lightbox';
+import GallerySlider from './GallerySlider';
 import styles from './Gallery.module.css';
+
+const PREVIEW_COUNT = 4;
 
 export default function Gallery() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [dir, setDir] = useState(0);
+
+  const open = (index) => {
+    setDir(0);
+    setActiveIndex(index);
+  };
+
+  const navigate = (index, delta) => {
+    setDir(delta);
+    setActiveIndex(index);
+  };
+
+  const preview = GALLERY_MEDIA.slice(0, PREVIEW_COUNT);
 
   return (
     <section id="gallery" className={styles.section}>
@@ -26,11 +42,11 @@ export default function Gallery() {
         </FadeIn>
 
         <div className={styles.grid}>
-          {GALLERY_MEDIA.map((item, i) => (
+          {preview.map((item, i) => (
             <FadeIn key={i} delay={i * 0.04} className={styles.thumbWrap}>
               <button
                 className={styles.card}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => open(i)}
                 aria-label={
                   item.type === 'video'
                     ? `Открыть видео: ${item.title}`
@@ -82,21 +98,28 @@ export default function Gallery() {
             </FadeIn>
           ))}
         </div>
+
+        <FadeIn delay={0.1}>
+          <div className={styles.more}>
+            <button className={styles.moreBtn} onClick={() => open(0)}>
+              Смотреть все изделия
+              <span className={styles.moreCount}>{GALLERY_MEDIA.length}</span>
+            </button>
+          </div>
+        </FadeIn>
       </div>
 
-      {activeIndex !== null && (
-        <Lightbox
-          images={GALLERY_MEDIA}
-          activeIndex={activeIndex}
-          onClose={() => setActiveIndex(null)}
-          onPrev={() =>
-            setActiveIndex((i) => (i - 1 + GALLERY_MEDIA.length) % GALLERY_MEDIA.length)
-          }
-          onNext={() =>
-            setActiveIndex((i) => (i + 1) % GALLERY_MEDIA.length)
-          }
-        />
-      )}
+      <AnimatePresence>
+        {activeIndex !== null && (
+          <GallerySlider
+            items={GALLERY_MEDIA}
+            activeIndex={activeIndex}
+            dir={dir}
+            onNavigate={navigate}
+            onClose={() => setActiveIndex(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -171,12 +171,22 @@
 @media (max-width: 734px) {
   .burger { display: block; }
 
+  /* Без backdrop-filter: иначе пилюля становится containing block для
+     fixed-меню и оно раскрывается лишь в границах капсулы, а не на весь экран. */
+  .bar {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
   .nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 100vh;
+    height: 100dvh;
     flex-direction: column;
     align-items: center;
     justify-content: center;

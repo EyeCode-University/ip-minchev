@@ -107,12 +107,19 @@ const GALLERY_ITEMS = [
   { file: 'slide-item (19).png', title: 'Секция насоса',                                 subtitle: '' },
 ];
 
-export const GALLERY_IMAGES = GALLERY_ITEMS.map(({ file, title, subtitle }) => ({
-  src: `/assets/generated_images/${file}`,
-  title,
-  subtitle,
-  alt: subtitle ? `${title} — ${subtitle}` : title,
-}));
+// `specs` (опционально) — массив { value, unit, label } для полноэкранного
+// слайдера (до 4 показателей, как на референсе). `description` (опционально) —
+// развёрнутое описание изделия; если не задано, в слайдере используется subtitle.
+export const GALLERY_IMAGES = GALLERY_ITEMS.map(
+  ({ file, title, subtitle, specs, description }) => ({
+    src: `/assets/generated_images/${file}`,
+    title,
+    subtitle,
+    specs,
+    description,
+    alt: subtitle ? `${title} — ${subtitle}` : title,
+  })
+);
 
 // ===== Демо-видео производства =====
 // Вертикальный ролик (9:16), снят на телефон. Лежит в public/assets/videos/.

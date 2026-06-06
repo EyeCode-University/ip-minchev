@@ -41,8 +41,58 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CTA: открыть полноэкранный слайдер со всеми изделиями */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+}
+
+.moreBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px 13px 28px;
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: var(--border-radius-pill);
+  transition: background var(--duration-normal) var(--ease-apple), transform var(--duration-normal) var(--ease-apple);
+}
+
+.moreBtn:hover {
+  background: var(--accent-blue-hover);
+  transform: translateY(-2px);
+}
+
+.moreCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 9px;
+  border-radius: var(--border-radius-pill);
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .thumbWrap {
