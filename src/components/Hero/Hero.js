@@ -14,14 +14,6 @@ export default function Hero() {
       </div>
 
       <div className={`container ${styles.content}`}>
-        <motion.p
-          className={styles.eyebrow}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          Торговый представитель Минчева Э.Р.
-        </motion.p>
         <motion.h1
           className={styles.title}
           initial={{ opacity: 0, y: 30 }}

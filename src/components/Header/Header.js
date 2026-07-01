@@ -21,9 +21,9 @@ export default function Header() {
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.bar}>
         <a href="#hero" className={styles.logo} onClick={handleNavClick}>
-          <span className={styles.logoMark} aria-hidden="true">ЭР</span>
+          <span className={styles.logoMark} aria-hidden="true">M</span>
           <span className={styles.logoFull}>{COMPANY.name}</span>
-          <span className={styles.logoShort}>Минчева Э.Р.</span>
+          <span className={styles.logoShort}>{COMPANY.name}</span>
         </a>
 
         <button

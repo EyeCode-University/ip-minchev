@@ -39,6 +39,6 @@ export async function sendTelegram({ name, contact, message, fileName, consentMe
   });
 }
 
-function escapeMarkdown(str) {
+export function escapeMarkdown(str) {
   return String(str).replace(/([_*\[\]()~`>#+\-=|{}.!])/g, '\\$1');
 }

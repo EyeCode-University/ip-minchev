@@ -42,13 +42,6 @@ export default function Contacts() {
                 </svg>
               </a>
             </FadeIn>
-
-            <FadeIn delay={0.3}>
-              <div className={styles.row}>
-                <span className={styles.rowLabel}>Адрес</span>
-                <address className={styles.rowValue}>{COMPANY.address}</address>
-              </div>
-            </FadeIn>
           </div>
         </div>
       </div>

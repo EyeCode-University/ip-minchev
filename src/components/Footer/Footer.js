@@ -11,7 +11,6 @@ export default function Footer() {
         <div className={styles.top}>
           <div className={styles.info}>
             <span className={styles.name}>{COMPANY.name}</span>
-            <address className={styles.address}>{COMPANY.address}</address>
           </div>
           <div className={styles.contacts}>
             <a href={COMPANY.phoneHref} className={styles.link}>

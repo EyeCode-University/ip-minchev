@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.docker.example
+
+# секреты (реальные пароли/токены — никогда в git)
+secrets/
 
 # vercel
 .vercel

@@ -50,7 +50,7 @@ export async function sendEmail({ name, contact, message, file, consentMeta }) {
   await transporter.sendMail(mailOptions);
 }
 
-function escapeHtml(str) {
+export function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')

@@ -1,14 +1,13 @@
 // ===== Данные компании =====
 export const COMPANY = {
-  name: 'Торговый представитель Минчева Э.Р.',
-  fullName: 'Торговый представитель Минчева Э.Р.',
+  name: 'gidromashprom',
+  fullName: 'gidromashprom',
   phone: '+7 949 714 46 22',
   phoneHref: 'tel:+79497144622',
   whatsappHref: 'https://wa.me/79497144622',
   telegramHref: 'https://t.me/+79497144622',
   email: 'Minchev-rm@yandex.ru',
   emailHref: 'mailto:Minchev-rm@yandex.ru',
-  address: 'Ул. Владимирская д.36, кв.1, г. Мариуполь, ДНР, Российская Федерация',
 };
 
 // ===== Навигация =====
