@@ -12,7 +12,15 @@ WORKDIR /app
 
 # Только манифесты — слой с npm ci кэшируется, пока lock-файл не изменился.
 COPY package.json package-lock.json ./
-RUN npm ci
+
+# Соединение с registry.npmjs.org рвётся на середине закачки (read ETIMEDOUT),
+# и по умолчанию npm сдаётся почти сразу. Поднимаем терпение и число повторов,
+# иначе сборка на сервере падает на случайном пакете.
+RUN npm config set fetch-retries 8 \
+ && npm config set fetch-retry-mintimeout 20000 \
+ && npm config set fetch-retry-maxtimeout 180000 \
+ && npm config set fetch-timeout 600000 \
+ && npm ci --no-audit --no-fund
 
 ############################
 # 2. Сборка

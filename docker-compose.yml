@@ -1,6 +1,12 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      # Через bridge-сеть Docker закачки с registry.npmjs.org зависают намертво
+      # (соединение открывается, данные не идут — PMTU не пролезает через NAT).
+      # На сети хоста те же файлы качаются мгновенно, поэтому собираем так.
+      # На работу контейнера не влияет — только на время сборки.
+      network: host
     image: minchev-site
     container_name: minchev-site
     restart: unless-stopped
