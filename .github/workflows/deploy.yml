@@ -1,0 +1,63 @@
+# CI/CD сайта ИП Минчев Р.М.
+#
+# Триггер — push в master (или ручной запуск из вкладки Actions).
+# Шаг 1 (ci):     линт + тесты + проверка, что проект вообще собирается.
+# Шаг 2 (deploy): подключаемся по SSH к VPS и пересобираем контейнер.
+#                 Запускается ТОЛЬКО если ci прошёл зелёным.
+
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # кнопка "Run workflow" в интерфейсе GitHub
+
+# Если запушили два раза подряд — старый деплой отменяется, катится только последний.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: Тесты и сборка
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Установка зависимостей
+        run: npm ci
+
+      - name: Линт
+        run: npm run lint
+
+      - name: Тесты
+        run: npm test
+
+      - name: Проверочная сборка
+        run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+  deploy:
+    name: Деплой на VPS
+    needs: ci
+    runs-on: ubuntu-latest
+    steps:
+      - name: Выкатка по SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          command_timeout: 20m
+          script_stop: true
+          script: |
+            set -e
+            cd ${{ secrets.APP_DIR }}
+            bash scripts/server-deploy.sh

@@ -5,7 +5,19 @@ services:
     container_name: minchev-site
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      # Наружу порт не светим: снаружи стоит Nginx и проксирует на 127.0.0.1:3000.
+      - "127.0.0.1:3000:3000"
     # Секреты берутся из .env рядом с этим файлом (не из образа).
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

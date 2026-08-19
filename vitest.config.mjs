@@ -7,7 +7,9 @@ export default defineConfig({
   plugins: [react({ include: /\.[jt]sx?$/ })],
   // esbuild парсит .js как обычный JS на этапе import-analysis — велим
   // грузить исходники проекта как JSX.
-  esbuild: { loader: 'jsx', include: /\.[jt]sx?$/, exclude: /node_modules/ },
+  // jsx: 'automatic' обязателен: без него esbuild разворачивает JSX в
+  // React.createElement и тесты падают с "React is not defined".
+  esbuild: { loader: 'jsx', jsx: 'automatic', include: /\.[jt]sx?$/, exclude: /node_modules/ },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
