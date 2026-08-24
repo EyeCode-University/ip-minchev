@@ -36,6 +36,9 @@ export async function sendTelegram({ name, contact, message, fileName, consentMe
       text: lines.join('\n'),
       parse_mode: 'Markdown',
     }),
+    // Без ограничения клиент ждёт отвала по системному таймауту (десятки секунд)
+    // и всё это время видит спиннер, хотя письмо уже ушло.
+    signal: AbortSignal.timeout(8000),
   });
 }
 
