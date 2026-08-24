@@ -8,15 +8,41 @@ export const COMPANY = {
   telegramHref: 'https://t.me/+79497144622',
   email: 'Minchev-rm@yandex.ru',
   emailHref: 'mailto:Minchev-rm@yandex.ru',
+
+  // Адрес и режим работы: один и тот же набор данных уходит и в текст на
+  // странице, и в микроразметку. Расходиться им нельзя — поисковик сверяет
+  // название/адрес/телефон на сайте с карточкой организации в справочнике,
+  // и любое расхождение работает против доверия к сайту.
+  // Номер квартиры из публичного адреса намеренно убран, полный юридический
+  // адрес остаётся в правовых документах (см. OPERATOR в src/lib/privacy.js).
+  address: {
+    street: 'ул. Владимирская, д. 36',
+    locality: 'Мариуполь',
+    region: 'ДНР',
+    country: 'RU',
+    full: 'г. Мариуполь, ДНР, ул. Владимирская, д. 36',
+  },
+
+  // `label` — для текста на странице, `opens`/`closes` — для микроразметки
+  // (формат ISO 8601, как требует OpeningHoursSpecification).
+  workingHours: {
+    label: 'Пн–Пт, 9:00–18:00',
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '18:00',
+  },
 };
 
 // ===== Навигация =====
+// Якоря записаны от корня (`/#gallery`, а не `#gallery`): секции живут только
+// на главной, и с посадочных страниц голый `#gallery` вёл бы в никуда.
+// На самой главной браузер отрабатывает такую ссылку как обычную прокрутку.
 export const NAV_LINKS = [
-  { href: '#hero', label: 'Главная' },
-  { href: '#capabilities', label: 'Возможности' },
-  { href: '#gallery', label: 'Галерея' },
-  { href: '#contacts', label: 'Контакты' },
-  { href: '#request', label: 'Заявка' },
+  { href: '/#hero', label: 'Главная' },
+  { href: '/#capabilities', label: 'Возможности' },
+  { href: '/#gallery', label: 'Галерея' },
+  { href: '/#contacts', label: 'Контакты' },
+  { href: '/#request', label: 'Заявка' },
 ];
 
 // ===== Города на карте (lng, lat) =====

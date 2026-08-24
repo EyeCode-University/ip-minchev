@@ -130,3 +130,11 @@ section[id] {
   background: var(--accent-blue);
   color: #fff;
 }
+
+/*
+  Атрибут hidden обязан скрывать элемент, даже если класс задаёт свой display
+  (.card, например, — flex). Без этого свёрнутые блоки остались бы на экране.
+*/
+[hidden] {
+  display: none !important;
+}

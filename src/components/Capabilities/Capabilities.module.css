@@ -364,3 +364,35 @@
     column-gap: 0;
   }
 }
+
+/* ===== Ссылки на страницы направлений ===== */
+.directions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin-top: var(--spacing-sm);
+}
+
+.directionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--border-radius-pill);
+  font-size: 15px;
+  color: var(--text-primary);
+  transition:
+    border-color var(--duration-fast) var(--ease-apple),
+    color var(--duration-fast) var(--ease-apple);
+}
+
+.directionLink:hover {
+  border-color: var(--color-border-hover);
+  color: var(--accent-blue);
+}
+
+.directionArrow {
+  color: var(--text-secondary);
+}

@@ -1,17 +1,36 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { motion } from 'motion/react';
 import RussiaMap from './RussiaMap';
-import ReactorModel from './ReactorModel';
 import styles from './Hero.module.css';
+
+// Фоновая 3D-модель на WebGL — самая тяжёлая часть первого экрана: сборка сцены
+// и компиляция шейдеров занимают главный поток ровно тогда, когда браузер
+// должен отрисовать заголовок. Выносим её в отдельный чанк и монтируем уже
+// после первой отрисовки — на LCP она больше не влияет.
+const ReactorModel = dynamic(() => import('./ReactorModel'), { ssr: false });
 
 
 export default function Hero() {
+  const [showReactor, setShowReactor] = useState(false);
+
+  useEffect(() => {
+    // Ждём, пока браузер освободится: сначала первый экран, потом декорация.
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(() => setShowReactor(true), { timeout: 2000 });
+      return () => cancelIdleCallback(id);
+    }
+
+    // Safari до 18-й версии не знает requestIdleCallback.
+    const timer = setTimeout(() => setShowReactor(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.reactorWrap}>
-        <ReactorModel />
-      </div>
+      <div className={styles.reactorWrap}>{showReactor && <ReactorModel />}</div>
 
       <div className={`container ${styles.content}`}>
         <motion.h1

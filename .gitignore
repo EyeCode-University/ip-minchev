@@ -43,3 +43,6 @@ secrets/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Архив с секретами: папка secrets/ уже закрыта, но не архив рядом с ней.
+secrets*.zip

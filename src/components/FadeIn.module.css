@@ -1,0 +1,27 @@
+/*
+  Появление при скролле на чистом CSS. Раньше это был motion-компонент, из-за
+  которого секции приходилось рендерить только на клиенте (ssr: false) —
+  контент не попадал в HTML для поискового робота. Здесь разметка отдаётся
+  сервером как есть, JS лишь навешивает класс .visible.
+*/
+.fadeIn {
+  opacity: 0;
+  transform: translateY(var(--fade-y, 30px));
+  transition:
+    opacity var(--fade-duration, 0.7s) var(--ease-apple) var(--fade-delay, 0s),
+    transform var(--fade-duration, 0.7s) var(--ease-apple) var(--fade-delay, 0s);
+}
+
+.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Тем, кто просил меньше движения, показываем контент сразу и без перехода. */
+@media (prefers-reduced-motion: reduce) {
+  .fadeIn {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

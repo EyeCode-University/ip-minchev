@@ -42,6 +42,22 @@ export default function Contacts() {
                 </svg>
               </a>
             </FadeIn>
+
+            {/* Адрес и режим работы — часть NAP: те же данные уходят
+                в микроразметку и в карточку организации в справочниках. */}
+            <FadeIn delay={0.3}>
+              <div className={styles.row}>
+                <span className={styles.rowLabel}>Адрес</span>
+                <address className={styles.rowValue}>{COMPANY.address.full}</address>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={0.4}>
+              <div className={styles.row}>
+                <span className={styles.rowLabel}>Режим работы</span>
+                <span className={styles.rowValue}>{COMPANY.workingHours.label}</span>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </div>

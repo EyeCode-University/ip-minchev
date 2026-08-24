@@ -1,0 +1,82 @@
+/*
+  Плашка живёт слева внизу: справа круглая кнопка связи (ContactFab), налезать
+  на неё нельзя. На узких экранах места по горизонтали нет — там плашка
+  поднимается над кнопкой.
+*/
+.notice {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 95;
+  max-width: 420px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 14px 16px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  animation: noticeIn 0.4s var(--ease-apple) both;
+}
+
+.text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-tertiary);
+}
+
+.link {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.button {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border: none;
+  border-radius: var(--border-radius-pill);
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-apple);
+}
+
+.button:hover {
+  background: var(--accent-blue-hover);
+}
+
+@keyframes noticeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notice {
+    animation: none;
+  }
+}
+
+@media (max-width: 734px) {
+  .notice {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+    /* Над круглой кнопкой связи: у неё 60px высоты и 24px отступ снизу. */
+    bottom: 96px;
+  }
+}
