@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { EQUIPMENT_LIST, MACHINING_CAPABILITIES, MACHINE_FLEET } from '@/lib/constants';
+import { LANDING_LIST } from '@/lib/landings';
 import FadeIn from '@/components/FadeIn';
 import styles from './Capabilities.module.css';
 
@@ -9,9 +11,6 @@ const PREVIEW_COUNT = 3;
 
 export default function Capabilities() {
   const [expanded, setExpanded] = useState(false);
-  const visibleCaps = expanded
-    ? MACHINING_CAPABILITIES
-    : MACHINING_CAPABILITIES.slice(0, PREVIEW_COUNT);
 
   return (
     <section id="capabilities" className={styles.section}>
@@ -35,10 +34,18 @@ export default function Capabilities() {
 
         {/* Machining capabilities — featured cards */}
         <div className={styles.grid}>
-          {visibleCaps.map((cap, i) => {
+          {MACHINING_CAPABILITIES.map((cap, i) => {
             const num = String(i + 1).padStart(2, '0');
             return (
-              <FadeIn key={i} delay={(i % PREVIEW_COUNT) * 0.06} className={styles.card}>
+              // Свёрнутые карточки остаются в разметке под атрибутом hidden,
+              // а не выкидываются из дерева: контент за «Подробнее» должен
+              // попадать в HTML, иначе поисковик его просто не видит.
+              <FadeIn
+                key={i}
+                delay={(i % PREVIEW_COUNT) * 0.06}
+                className={styles.card}
+                hidden={!expanded && i >= PREVIEW_COUNT}
+              >
                 <span className={styles.ghost} aria-hidden="true">{num}</span>
                 <span className={styles.badge}>{num}</span>
                 <h3 className={styles.cardTitle}>{cap.name}</h3>
@@ -50,42 +57,42 @@ export default function Capabilities() {
           })}
         </div>
 
-        {/* Станочный парк — раскрывается по «Подробнее» */}
-        {expanded && (
-          <FadeIn className={styles.block}>
-            <div className={styles.blockHead}>
-              <h3 className={styles.blockHeading}>Станочный парк</h3>
-              <span className={styles.blockCount}>{MACHINE_FLEET.length} единиц</span>
-            </div>
-            <p className={styles.blockDesc}>
-              Собственное оборудование для полного цикла механической обработки
-            </p>
+        {/* Станочный парк — раскрывается по «Подробнее». Блок присутствует
+            в разметке всегда: перечень станков с моделями — уникальный
+            контент, ради которого сайт и находят по узким запросам. */}
+        <FadeIn className={styles.block} hidden={!expanded}>
+          <div className={styles.blockHead}>
+            <h3 className={styles.blockHeading}>Станочный парк</h3>
+            <span className={styles.blockCount}>{MACHINE_FLEET.length} единиц</span>
+          </div>
+          <p className={styles.blockDesc}>
+            Собственное оборудование для полного цикла механической обработки
+          </p>
 
-            <div className={styles.tableWrap}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Тип станка</th>
-                    <th>Модель</th>
-                    <th className={styles.thSpec}>Рабочая зона</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {MACHINE_FLEET.map((m, i) => {
-                    const firstOfType = i === 0 || MACHINE_FLEET[i - 1].type !== m.type;
-                    return (
-                      <tr key={i} className={firstOfType ? styles.rowGroup : undefined}>
-                        <td className={styles.tdType}>{firstOfType ? m.type : ''}</td>
-                        <td className={styles.tdModel}>{m.model}</td>
-                        <td className={styles.tdSpec}>{m.spec}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </FadeIn>
-        )}
+          <div className={styles.tableWrap}>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Тип станка</th>
+                  <th>Модель</th>
+                  <th className={styles.thSpec}>Рабочая зона</th>
+                </tr>
+              </thead>
+              <tbody>
+                {MACHINE_FLEET.map((m, i) => {
+                  const firstOfType = i === 0 || MACHINE_FLEET[i - 1].type !== m.type;
+                  return (
+                    <tr key={i} className={firstOfType ? styles.rowGroup : undefined}>
+                      <td className={styles.tdType}>{firstOfType ? m.type : ''}</td>
+                      <td className={styles.tdModel}>{m.model}</td>
+                      <td className={styles.tdSpec}>{m.spec}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </FadeIn>
 
         {/* Кнопка раскрытия */}
         <div className={styles.moreWrap}>
@@ -116,6 +123,27 @@ export default function Capabilities() {
               </div>
             ))}
           </div>
+        </FadeIn>
+
+        {/* Перелинковка на страницы направлений: без ссылок с главной они
+            остались бы изолированными, и вес по ним не расходился бы. */}
+        <FadeIn delay={0.15} className={styles.block}>
+          <h3 className={styles.blockHeading}>Направления</h3>
+          <p className={styles.blockDesc}>
+            Подробные параметры, техвозможности и примеры изделий по каждому направлению
+          </p>
+          <ul className={styles.directions}>
+            {LANDING_LIST.map((landing) => (
+              <li key={landing.slug}>
+                <Link href={`/${landing.slug}`} className={styles.directionLink}>
+                  {landing.navLabel}
+                  <span className={styles.directionArrow} aria-hidden="true">
+                    ›
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </FadeIn>
       </div>
     </section>

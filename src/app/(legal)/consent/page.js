@@ -3,10 +3,12 @@ import { OPERATOR, CONSENT_EFFECTIVE_DATE, CONSENT_VERSION } from '@/lib/privacy
 import styles from '../legal.module.css';
 
 export const metadata = {
-  title: 'Согласие на обработку персональных данных — Торговый представитель Минчева Э.Р.',
+  title: 'Согласие на обработку персональных данных',
   description:
     'Текст согласия на обработку персональных данных, принимаемого посетителем сайта при отправке заявки.',
-  robots: { index: true, follow: true },
+  alternates: { canonical: '/consent' },
+  // Причина noindex — та же, что и у Политики конфиденциальности.
+  robots: { index: false, follow: true },
 };
 
 export default function ConsentPage() {

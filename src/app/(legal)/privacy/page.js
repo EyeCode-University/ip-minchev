@@ -3,10 +3,14 @@ import { OPERATOR, CONSENT_EFFECTIVE_DATE, CONSENT_VERSION } from '@/lib/privacy
 import styles from '../legal.module.css';
 
 export const metadata = {
-  title: 'Политика конфиденциальности — Торговый представитель Минчева Э.Р.',
+  title: 'Политика конфиденциальности',
   description:
     'Политика в отношении обработки персональных данных Торгового представителя Минчева Э.Р. в соответствии с Федеральным законом № 152-ФЗ.',
-  robots: { index: true, follow: true },
+  alternates: { canonical: '/privacy' },
+  // Шаблонный правовой текст без поискового спроса: в индексе он только
+  // размывает тематический профиль сайта. follow оставляем — вес по внутренним
+  // ссылкам должен возвращаться на главную.
+  robots: { index: false, follow: true },
 };
 
 export default function PrivacyPage() {

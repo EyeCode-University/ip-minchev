@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { NAV_LINKS, COMPANY } from '@/lib/constants';
 import styles from './Header.module.css';
 
@@ -15,16 +16,16 @@ export default function Header() {
   }, []);
 
   const handleNavClick = () => setMenuOpen(false);
-  const navLinks = NAV_LINKS.filter((l) => l.href !== '#request');
+  const navLinks = NAV_LINKS.filter((l) => l.href !== '/#request');
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <div className={styles.bar}>
-        <a href="#hero" className={styles.logo} onClick={handleNavClick}>
+        <Link href="/" className={styles.logo} onClick={handleNavClick}>
           <span className={styles.logoMark} aria-hidden="true">M</span>
           <span className={styles.logoFull}>{COMPANY.name}</span>
           <span className={styles.logoShort}>{COMPANY.name}</span>
-        </a>
+        </Link>
 
         <button
           className={`${styles.burger} ${menuOpen ? styles.burgerOpen : ''}`}
@@ -41,18 +42,18 @@ export default function Header() {
           aria-label="Основная навигация"
         >
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className={styles.navLink}
               onClick={handleNavClick}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
-          <a href="#request" className={styles.cta} onClick={handleNavClick}>
+          <Link href="/#request" className={styles.cta} onClick={handleNavClick}>
             Оставить заявку
-          </a>
+          </Link>
         </nav>
       </div>
     </header>

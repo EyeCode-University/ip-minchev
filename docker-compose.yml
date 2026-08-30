@@ -7,6 +7,9 @@ services:
       # На сети хоста те же файлы качаются мгновенно, поэтому собираем так.
       # На работу контейнера не влияет — только на время сборки.
       network: host
+      args:
+        # Домен для canonical/robots/sitemap. Нужен именно на сборке.
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://gidromashprom.ru}
     image: minchev-site
     container_name: minchev-site
     restart: unless-stopped

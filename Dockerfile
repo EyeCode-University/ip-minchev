@@ -30,6 +30,12 @@ WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Канонический адрес сайта. NEXT_PUBLIC_* подставляется в бандл на этапе сборки,
+# а не читается в рантайме, поэтому передаётся именно build-аргументом —
+# в env_file контейнера класть бесполезно.
+ARG NEXT_PUBLIC_SITE_URL=https://gidromashprom.ru
+ENV NEXT_PUBLIC_SITE_URL=${NEXT_PUBLIC_SITE_URL}
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 

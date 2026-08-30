@@ -1,0 +1,259 @@
+/*
+  Шаблон посадочной страницы. Держится тех же токенов, что и главная:
+  ширина контейнера, отступы, скругления и синий акцент берутся из globals.css.
+*/
+.page {
+  padding: calc(var(--header-height) + var(--spacing-lg)) 0 var(--spacing-xxl);
+  background: var(--bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 22px;
+}
+
+/* ===== Хлебные крошки ===== */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.crumbLink {
+  color: var(--accent-blue);
+  transition: opacity var(--duration-fast) var(--ease-apple);
+}
+
+.crumbLink:hover {
+  opacity: 0.7;
+}
+
+.crumbSep {
+  color: var(--text-secondary);
+}
+
+/* ===== Заголовок и лид ===== */
+.title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  max-width: 720px;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ===== Кнопки ===== */
+.ctaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+}
+
+.ctaPrimary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 26px;
+  border-radius: var(--border-radius-pill);
+  background: var(--accent-blue);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background var(--duration-fast) var(--ease-apple);
+}
+
+.ctaPrimary:hover {
+  background: var(--accent-blue-hover);
+}
+
+.ctaPhone {
+  font-size: 15px;
+  color: var(--accent-blue);
+  transition: opacity var(--duration-fast) var(--ease-apple);
+}
+
+.ctaPhone:hover {
+  opacity: 0.7;
+}
+
+/* ===== Секции ===== */
+.section {
+  margin-top: var(--spacing-xl);
+}
+
+.heading {
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.note {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ===== Таблица параметров ===== */
+.specs {
+  border-top: 1px solid var(--color-border);
+}
+
+.specRow {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: var(--spacing-md);
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.specLabel {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+}
+
+.specValue {
+  font-size: 17px;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* ===== Таблицы ===== */
+.tableWrap {
+  overflow-x: auto;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.table th {
+  text-align: left;
+  padding: 14px 18px;
+  background: var(--bg-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 14px 18px;
+  border-top: 0.5px solid var(--color-border);
+  color: var(--text-primary);
+  vertical-align: top;
+}
+
+.tdParams {
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* ===== Изделия ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.thumb {
+  display: block;
+  overflow: hidden;
+  border-radius: var(--border-radius-sm);
+  background: var(--bg-secondary);
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.captionTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.captionSubtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* ===== Другие направления ===== */
+.others {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.otherLink {
+  display: inline-flex;
+  padding: 10px 18px;
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--border-radius-pill);
+  font-size: 15px;
+  color: var(--text-primary);
+  transition:
+    border-color var(--duration-fast) var(--ease-apple),
+    color var(--duration-fast) var(--ease-apple);
+}
+
+.otherLink:hover {
+  border-color: var(--color-border-hover);
+  color: var(--accent-blue);
+}
+
+@media (max-width: 734px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .specRow {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -50,7 +50,10 @@ export async function submitApplication(prevState, formData) {
   try {
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    await Promise.all([
+    // Письмо — обязательный канал, Telegram — дополнительный. Раньше здесь стоял
+    // Promise.all, и недоступность api.telegram.org (её ловит хостинг в РФ)
+    // роняла всю заявку: письмо уже ушло, а клиент видел ошибку и слал повторно.
+    const [emailResult, telegramResult] = await Promise.allSettled([
       sendEmail({
         name,
         contact,
@@ -66,6 +69,15 @@ export async function submitApplication(prevState, formData) {
         consentMeta,
       }),
     ]);
+
+    if (telegramResult.status === 'rejected') {
+      console.error('Telegram недоступен, заявка ушла только на почту:', telegramResult.reason);
+    }
+
+    if (emailResult.status === 'rejected') {
+      console.error('submitApplication email error:', emailResult.reason);
+      return { success: false, error: 'Ошибка при отправке заявки. Попробуйте позже.' };
+    }
 
     return { success: true };
   } catch (err) {
