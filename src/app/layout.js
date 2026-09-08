@@ -7,7 +7,6 @@ import { organizationJsonLd, webSiteJsonLd } from "@/lib/jsonLd";
 import {
   SITE_URL,
   SITE_NAME,
-  LEGAL_NAME,
   SITE_TITLE,
   SITE_DESCRIPTION,
 } from "@/lib/site";
@@ -49,9 +48,9 @@ export const metadata = {
   // http/https и www/без-www, которые иначе размывают вес страницы.
   alternates: { canonical: "/" },
   applicationName: SITE_NAME,
-  authors: [{ name: LEGAL_NAME }],
-  creator: LEGAL_NAME,
-  publisher: LEGAL_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   // meta keywords не учитывается ни Google (с 2009), ни Яндексом — не задаём.
   openGraph: {
     title: SITE_TITLE,

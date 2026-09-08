@@ -81,11 +81,21 @@ const fragment = /* glsl */ `
 `;
 
 export default function ReactorModel() {
-  const canvasRef = useRef(null);
+  const hostRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const host = hostRef.current;
+    if (!host) return;
+
+    // Canvas создаём здесь, а не отдаём React: WebGL-контекст живёт на элементе
+    // и после loseContext() в cleanup остаётся мёртвым навсегда. Переиспользуй
+    // мы один и тот же <canvas>, повторный прогон эффекта (Strict Mode, Fast
+    // Refresh, ре-маунт) получил бы потерянный контекст — программа не
+    // слинковалась бы, а OGL молча оставляет Program.uniformLocations пустым
+    // и падает уже на первом кадре. Свежий элемент на каждый прогон — свежий
+    // контекст.
+    const canvas = document.createElement('canvas');
+    host.appendChild(canvas);
 
     const reduceMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)'
@@ -100,6 +110,7 @@ export default function ReactorModel() {
         antialias: true,
       });
     } catch {
+      canvas.remove();
       return;
     }
     const gl = renderer.gl;
@@ -201,15 +212,14 @@ export default function ReactorModel() {
     add(new Cylinder(gl, { radiusTop: 0.1, radiusBottom: 0.1, height: 0.16, radialSegments: 24 }), darkSteel, spinner, { position: [0, 2.66, 0] });
 
     // --- Ресайз ---
-    const parent = canvas.parentElement;
     const resize = () => {
-      const w = parent.clientWidth;
-      const h = parent.clientHeight;
+      const w = host.clientWidth;
+      const h = host.clientHeight;
       renderer.setSize(w, h);
       camera.perspective({ aspect: w / Math.max(h, 1) });
     };
     const ro = new ResizeObserver(resize);
-    ro.observe(parent);
+    ro.observe(host);
     resize();
 
     // --- Параллакс от курсора ---
@@ -258,7 +268,7 @@ export default function ReactorModel() {
       },
       { threshold: 0 }
     );
-    io.observe(parent);
+    io.observe(host);
 
     const onVisibility = () => (document.hidden ? stop() : start());
     document.addEventListener('visibilitychange', onVisibility);
@@ -279,8 +289,9 @@ export default function ReactorModel() {
       window.removeEventListener('pointermove', onPointer);
       const ext = gl.getExtension('WEBGL_lose_context');
       if (ext) ext.loseContext();
+      canvas.remove();
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={styles.reactorCanvas} aria-hidden="true" />;
+  return <div ref={hostRef} className={styles.reactorCanvas} aria-hidden="true" />;
 }

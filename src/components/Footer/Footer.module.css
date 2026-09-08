@@ -30,21 +30,9 @@
   color: var(--text-primary);
 }
 
-.legalName {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
 .hours {
   font-size: 12px;
   color: var(--text-secondary);
-}
-
-.address {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-style: normal;
-  max-width: 360px;
 }
 
 .contacts {

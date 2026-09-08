@@ -1,5 +1,5 @@
 import { COMPANY, EQUIPMENT_LIST, GALLERY_IMAGES } from '@/lib/constants';
-import { SITE_URL, SITE_NAME, LEGAL_NAME, SITE_DESCRIPTION } from '@/lib/site';
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/site';
 
 // ===== Микроразметка Schema.org (JSON-LD) =====
 // Данные берутся из тех же констант, что и текст на странице: разметка,
@@ -14,18 +14,13 @@ export const organizationJsonLd = {
   '@type': 'Organization',
   '@id': ORG_ID,
   name: SITE_NAME,
-  legalName: LEGAL_NAME,
   url: SITE_URL,
   description: SITE_DESCRIPTION,
   telephone: COMPANY.phone,
   email: COMPANY.email,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: COMPANY.address.street,
-    addressLocality: COMPANY.address.locality,
-    addressRegion: COMPANY.address.region,
-    addressCountry: COMPANY.address.country,
-  },
+  // PostalAddress намеренно не заявляем: физический адрес на публичных
+  // страницах не показывается, а разметка, расходящаяся с видимым текстом,
+  // считается недостоверной. Связь с местом даёт areaServed ниже.
   // Поставки по всей стране — это заявлено и на странице, и на карте в Hero.
   areaServed: { '@type': 'Country', name: 'Россия' },
   contactPoint: [

@@ -20,7 +20,15 @@
   pointer-events: none;
 }
 
+/* Хост-контейнер: сам <canvas> создаётся в ReactorModel через DOM,
+   поэтому размеры задаём и обёртке, и вложенному элементу. */
 .reactorCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.reactorCanvas > canvas {
   width: 100%;
   height: 100%;
   display: block;
