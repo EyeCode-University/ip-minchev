@@ -2,8 +2,14 @@
   --bp-ink: #3a4a73;
   --bp-accent: var(--accent-blue);
   --bp-line: rgba(0, 42, 227, 0.05);
-  --bp-line-soft: rgba(0, 42, 227, 0.025);
   --bp-frame: var(--color-border);
+
+  /* Поля ввода. Оттенки взяты от акцентного синего, а не от нейтрального
+     серого, — заливка читается как часть бланка, а не как чужеродный блок. */
+  --bp-field: #eef2fb;
+  --bp-field-border: rgba(0, 42, 227, 0.22);
+  --bp-field-border-hover: rgba(0, 42, 227, 0.42);
+  --bp-placeholder: #7b86a6;
 
   padding: var(--spacing-xxl) 0;
   background: var(--bg-secondary);
@@ -11,25 +17,56 @@
 
 /* ===== Чертёжный лист ===== */
 .sheet {
+  /* Поле листа и размер загнутого угла связаны: по ним считается отступ
+     тех-шапки, чтобы дата не заезжала под сгиб на узких экранах. */
+  --sheet-pad: clamp(24px, 4vw, 48px);
+  --fold: clamp(30px, 4.4vw, 46px);
+
   position: relative;
   max-width: 760px;
   margin: 0 auto;
-  padding: clamp(24px, 4vw, 48px);
+  padding: var(--sheet-pad);
   background-color: #ffffff;
-  background-image:
-    linear-gradient(var(--bp-line-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bp-line-soft) 1px, transparent 1px),
-    linear-gradient(var(--bp-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bp-line) 1px, transparent 1px);
-  background-size:
-    24px 24px,
-    24px 24px,
-    120px 120px,
-    120px 120px;
   border: 1px solid var(--bp-frame);
   border-radius: var(--border-radius);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 18px 50px -28px rgba(0, 42, 227, 0.18);
   overflow: hidden;
+
+  /* Правый верхний угол срезан по диагонали — на срезе лежит .fold,
+     «изнанка» загнутой бумаги. */
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--fold)) 0,
+    100% var(--fold),
+    100% 100%,
+    0 100%
+  );
+
+  /* box-shadow обрезается clip-path'ом, поэтому тень рисуем фильтром —
+     drop-shadow повторяет силуэт со срезанным углом. */
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.04))
+    drop-shadow(0 14px 24px rgba(0, 42, 227, 0.1));
+}
+
+/* Загнутый угол: треугольник-«изнанка» листа, катетами внутрь.
+   Гипотенуза совпадает со срезом .sheet, поэтому линия сгиба стоит
+   на 50% оси градиента 225deg (перпендикуляр к диагонали квадрата). */
+.fold {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--fold);
+  height: var(--fold);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(
+      225deg,
+      transparent calc(50% - 1.2px),
+      rgba(0, 42, 227, 0.26) calc(50% - 1.2px) 50%,
+      transparent 50%
+    ),
+    linear-gradient(225deg, #f8faff 0%, #eaf0fb 55%, #dae3f4 100%);
+  filter: drop-shadow(-3px 3px 5px rgba(0, 42, 227, 0.13));
+  pointer-events: none;
 }
 
 /* Угловые регистрационные метки */
@@ -41,7 +78,6 @@
   pointer-events: none;
 }
 .cornerTL { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-.cornerTR { top: 10px; right: 10px; border-left: none; border-bottom: none; }
 .cornerBL { bottom: 10px; left: 10px; border-right: none; border-top: none; }
 .cornerBR { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
@@ -56,6 +92,8 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   color: var(--bp-ink);
+  /* Резерв под загнутый угол, если он вылезает за поле листа. */
+  padding-right: max(0px, calc(var(--fold) - var(--sheet-pad) + 8px));
 }
 
 .metaTag {
@@ -166,30 +204,45 @@
   background: rgba(0, 42, 227, 0.04);
 }
 
+/* Поля намеренно залиты и обведены заметнее фона листа: на белой сетке
+   чертежа поле с тонкой светлой рамкой не читается как область для ввода,
+   и посетитель не понимает, куда нажимать. Заливка + рамка 1.5px дают
+   границу, видимую боковым зрением; в фокусе поле «включается» — светлеет
+   до белого, рамка синеет и вокруг появляется кольцо. */
 .input,
 .textarea {
-  padding: 13px 15px;
-  background: #ffffff;
-  border: 1px solid var(--bp-frame);
+  padding: 14px 15px;
+  background: var(--bp-field);
+  border: 1.5px solid var(--bp-field-border);
   border-radius: var(--border-radius-sm);
   color: var(--text-primary);
   font-size: 16px;
   font-family: inherit;
   transition: border-color var(--duration-fast) var(--ease-apple),
+              background var(--duration-fast) var(--ease-apple),
               box-shadow var(--duration-fast) var(--ease-apple);
   outline: none;
 }
 
-.input:focus,
-.textarea:focus {
-  border-color: var(--bp-accent);
-  box-shadow: 0 0 0 3px rgba(0, 42, 227, 0.1);
+.input:hover,
+.textarea:hover {
+  border-color: var(--bp-field-border-hover);
+  background: #ffffff;
 }
 
+.input:focus,
+.textarea:focus {
+  background: #ffffff;
+  border-color: var(--bp-accent);
+  box-shadow: 0 0 0 3px rgba(0, 42, 227, 0.14);
+}
+
+/* Плейсхолдер — подсказка, а не заполненное значение: он должен читаться,
+   но оставаться заметно светлее введённого текста. */
 .input::placeholder,
 .textarea::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.6;
+  color: var(--bp-placeholder);
+  opacity: 1;
 }
 
 .textarea {
@@ -205,13 +258,15 @@
   overflow: hidden;
 }
 
+/* Пунктир держим — он отличает зону загрузки от обычных полей, — но
+   усиливаем до той же плотности, что и рамки инпутов. */
 .fileLabel {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 15px;
-  background: rgba(0, 42, 227, 0.02);
-  border: 1.5px dashed var(--bp-frame);
+  padding: 16px 15px;
+  background: var(--bp-field);
+  border: 1.5px dashed var(--bp-field-border);
   border-radius: var(--border-radius-sm);
   color: var(--bp-ink);
   font-family: var(--font-mono), monospace;
@@ -219,14 +274,24 @@
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: border-color var(--duration-fast), color var(--duration-fast),
-              background var(--duration-fast);
+              background var(--duration-fast), box-shadow var(--duration-fast);
   word-break: break-all;
 }
 
 .fileLabel:hover {
   border-color: var(--bp-accent);
   color: var(--bp-accent);
-  background: rgba(0, 42, 227, 0.05);
+  background: #ffffff;
+}
+
+/* Поле файла скрыто визуально, поэтому кольцо фокуса рисуем на его подписи —
+   иначе при переходе по Tab не видно, где находишься. */
+.fileInput:focus-visible + .fileLabel,
+.fileLabel:focus-visible {
+  border-color: var(--bp-accent);
+  border-style: solid;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 42, 227, 0.14);
 }
 
 /* ===== Согласие ===== */

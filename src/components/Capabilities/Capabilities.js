@@ -61,10 +61,7 @@ export default function Capabilities() {
             в разметке всегда: перечень станков с моделями — уникальный
             контент, ради которого сайт и находят по узким запросам. */}
         <FadeIn className={styles.block} hidden={!expanded}>
-          <div className={styles.blockHead}>
-            <h3 className={styles.blockHeading}>Станочный парк</h3>
-            <span className={styles.blockCount}>{MACHINE_FLEET.length} единиц</span>
-          </div>
+          <h3 className={styles.blockHeading}>Станочный парк</h3>
           <p className={styles.blockDesc}>
             Собственное оборудование для полного цикла механической обработки
           </p>

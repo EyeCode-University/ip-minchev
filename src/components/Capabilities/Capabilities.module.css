@@ -213,27 +213,11 @@
   margin-top: var(--spacing-xl);
 }
 
-.blockHead {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-}
-
 .blockHeading {
   font-size: clamp(24px, 3vw, 34px);
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-primary);
-}
-
-.blockCount {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent-blue);
-  background: var(--accent-blue-muted);
-  padding: 4px 11px;
-  border-radius: var(--border-radius-pill);
 }
 
 .blockDesc {

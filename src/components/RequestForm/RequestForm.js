@@ -65,7 +65,7 @@ export default function RequestForm() {
         <FadeIn delay={0.1}>
           <div className={styles.sheet}>
             <span className={`${styles.corner} ${styles.cornerTL}`} aria-hidden="true" />
-            <span className={`${styles.corner} ${styles.cornerTR}`} aria-hidden="true" />
+            <span className={styles.fold} aria-hidden="true" />
             <span className={`${styles.corner} ${styles.cornerBL}`} aria-hidden="true" />
             <span className={`${styles.corner} ${styles.cornerBR}`} aria-hidden="true" />
 
@@ -152,12 +152,9 @@ export default function RequestForm() {
                 <label className={styles.label}>
                   <span className={styles.idx}>04</span> Прикрепить файл
                 </label>
-                <label className={styles.fileLabel} htmlFor="file">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
-                  </svg>
-                  {fileName || 'Приложить файл · jpg · png · pdf · dwg'}
-                </label>
+                {/* Скрытый input идёт перед подписью намеренно: кольцо фокуса
+                    рисуется на .fileLabel соседним селектором (+), а он
+                    работает только для последующего элемента. */}
                 <input
                   type="file"
                   id="file"
@@ -167,6 +164,12 @@ export default function RequestForm() {
                   className={styles.fileInput}
                   onChange={handleFileChange}
                 />
+                <label className={styles.fileLabel} htmlFor="file">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
+                  </svg>
+                  {fileName || 'Приложить файл · jpg · png · pdf · dwg'}
+                </label>
               </div>
 
               <div className={styles.consent}>
